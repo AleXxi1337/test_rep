@@ -12,7 +12,7 @@ import React, { useState, useEffect } from 'react';
 interface Props {
   show: boolean;
 }
-i
+ii
 export const App: React.FC<Props> = ({ show }) => {
   const [count, setCount] = useState(0);
   const unusedVariable = 42; // ❌ не используется — сработает правило no-unused-vars
