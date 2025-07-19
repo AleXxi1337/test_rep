@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname "$0")/_/husky.sh"
+echo "🔥 pre-commit hook firing!" 1>&2
+exit 1
 
 export HUSKY_DEBUG=1
 npx lint-staged --allow-empty
