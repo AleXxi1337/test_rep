@@ -1,0 +1,18 @@
+name: 🧪 Test Self-Hosted Runner
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - name: 👋 Приветствие
+        run: echo "Runner работает! Привет от $(hostname) 🚀"
+
+      - name: 🕒 Покажи текущее время
+        run: date
+
+      - name: 📂 Список файлов в репозитории
+        run: ls -lah
