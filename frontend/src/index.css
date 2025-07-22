@@ -1,1 +1,12 @@
+@font-face {
+    font-family: Noto Sans;
+    src: url(../fonts/NotoSans-VariableFont_wdth\,wght.ttf);
+}
+
+
+
 @import 'tailwindcss';
+
+@theme{
+    --default-font-family: Noto Sans, "self-serif";
+}
