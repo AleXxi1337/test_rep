@@ -1,18 +1,21 @@
 import { AnimatePresence, motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import type { LucideProps } from 'lucide-react';
 import { useState } from 'react';
+import { lightenColor } from '../utils/lightenColor';
 
 interface Props {
   className?: string;
   children: string;
   icon: React.ComponentType<LucideProps>;
+  color: string;
 }
 
-export const Aboba: React.FC<Props> = ({ children, icon: Icon }) => {
+export const Aboba: React.FC<Props> = ({ children, icon: Icon, color }) => {
   const [isHover, setIsHover] = useState(false);
-
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+
+  const lighterColor = lightenColor(color);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const { left, top } = e.currentTarget.getBoundingClientRect();
@@ -21,10 +24,10 @@ export const Aboba: React.FC<Props> = ({ children, icon: Icon }) => {
   };
 
   const borderGradient = useMotionTemplate`
-        radial-gradient(
-            ${70}px at ${mouseX}px ${mouseY}px, white, #222222
-        ) border-box
-    `;
+    radial-gradient(
+      ${70}px at ${mouseX}px ${mouseY}px, ${lighterColor}, ${color}
+    ) border-box
+  `;
 
   return (
     <AnimatePresence>
@@ -35,7 +38,8 @@ export const Aboba: React.FC<Props> = ({ children, icon: Icon }) => {
         onMouseLeave={() => setIsHover(false)}
         style={{
           background: useMotionTemplate`
-          ${isHover ? borderGradient : '#222222 border-box'}`,
+            ${isHover ? borderGradient : `${color} border-box`}
+          `,
           border: '2px solid transparent',
         }}
         whileTap={{ scale: 0.7 }}
@@ -51,8 +55,11 @@ export const Aboba: React.FC<Props> = ({ children, icon: Icon }) => {
         }}
       >
         <AnimatePresence mode="wait">
-          <div className="p-3 font-black text-md bg-[#222222] flex rounded-lg justify-center items-center gap-4 text-white">
-            {<Icon size={25} color="white" strokeWidth={4} />}
+          <div
+            className="p-3 font-black text-md flex rounded-lg justify-center items-center gap-4 text-white"
+            style={{ backgroundColor: color }}
+          >
+            <Icon size={25} color="white" strokeWidth={4} />
             {isHover && children}
           </div>
         </AnimatePresence>
