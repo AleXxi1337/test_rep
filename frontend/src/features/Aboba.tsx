@@ -8,9 +8,10 @@ interface Props {
   children: string;
   icon: React.ComponentType<LucideProps>;
   color: string;
+  onClick: () => void;
 }
 
-export const Aboba: React.FC<Props> = ({ children, icon: Icon, color }) => {
+export const Aboba: React.FC<Props> = ({ children, icon: Icon, color, onClick }) => {
   const [isHover, setIsHover] = useState(false);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -36,6 +37,7 @@ export const Aboba: React.FC<Props> = ({ children, icon: Icon, color }) => {
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
+        onClick={onClick}
         style={{
           background: useMotionTemplate`
             ${isHover ? borderGradient : `${color} border-box`}
