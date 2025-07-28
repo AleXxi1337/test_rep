@@ -1,12 +1,7 @@
 FROM python:3.11-buster AS builder
 
-RUN rm -f /etc/apt/sources.list.d/ubuntu.sources && \
-    echo "deb http://archive.ubuntu.com/ubuntu noble main universe" > /etc/apt/sources.list && \
-    echo "deb http://security.ubuntu.com/ubuntu noble-security main universe" >> /etc/apt/sources.list && \
-    echo "deb http://archive.ubuntu.com/ubuntu noble-updates main universe" >> /etc/apt/sources.list && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends curl && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get install -y --reinstall ubuntu-keyring
+RUN apt-get update && apt-get install -y --no-install-recommends curl
 
 RUN curl -LsS 'https://astral.sh/uv/install.sh' | sh
 ENV PATH="/root/.local/bin:$PATH"
