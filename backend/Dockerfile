@@ -1,6 +1,5 @@
-FROM python:3.11-buster AS builder
+FROM python:3.11-bookworm AS builder
 
-RUN apt-get install -y --reinstall ubuntu-keyring
 RUN apt-get update && apt-get install -y --no-install-recommends curl
 
 RUN curl -LsS 'https://astral.sh/uv/install.sh' | sh
@@ -17,7 +16,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 ENV PATH="/app/.venv/bin:$PATH"
 
-FROM python:3.11-slim-buster AS production
+FROM python:3.11-slim-bookworm AS production
 
 WORKDIR /app
 
